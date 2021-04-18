@@ -31,9 +31,13 @@ def option1(number):
         print("-" * 15)
         race_choice = int(input("Which number race would you like the results of? >>> "))
         if race_choice == 1:
-            print("Clonakilty")
+            clonakilty = open("clonakilty.txt", "r")
+            print(clonakilty.read())
+            clonakilty.close()
         elif race_choice == 2:
-            print("Bandon")
+            bandon = open("bandon.txt", "r")
+            print(bandon.read())
+            bandon.close()
         else: 
             print()
             print("Uh Oh, Incorrect data entered, please enter '1' or '2'.")
