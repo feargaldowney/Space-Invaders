@@ -1,5 +1,5 @@
-John Jones, CX-1
-Cian Coughlan, CX-2
-Radon Randell, LK-1
-Mark Matthews, GY-1
-Andy Adams, GY-2
+John Jones, C-1
+Cian Coughlan, C-2
+Radon Randell, B-1
+Mark Matthews, S-1
+Andy Adams, S-2
