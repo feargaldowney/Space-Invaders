@@ -76,42 +76,63 @@ def option1(number, print_dashes):
                 print("Uh Oh, incorrect data entered, please enter '1' or '2'.")
                 print()
 
-        elif number == 2:
+
+
+# Need to rename new.txt to the name of the race
+# Next on agenda: make times appear beside participants id
+def option2(number, names, ids):
+        if number == 2:
             print("Adding results for a race...")
             new = open("new.txt", "w")
-            new.write(input("Where did this race take place? >>> "))
-            # runner_details = []
-            # x = 0
-            # runners = open("runners.txt", "r")
-            # while x < runners:
-            #     for i in runners:
-            #         time = input("What was {runners.read[i]} time? >>> ")
-            #     runner_details.append(input("Enter runners id followed by their time in seconds >>> "))
-                
-            #     print(runner_details[x])
-            #     x += 1
-            # print(runner_details)
+            race = (input("Where did this race take place? >>> "))
+            new.write(race)
+            runner_ids = []
+            times = []
+            runner_details = []
+            x = 0
+            while x < len(names):
+                for i in names:
+                    times = input(f"What was {names[x]}'s time? >>> ")
+                    x += 1
+                    runner_details.append(times)
+            runner_ids = ids
+            runner_details.append(ids)   
+            print(runner_details)
             
             new.close()
-        
-        elif number == 3:
+
+
+def option3(number):
+        if number == 3:
             print("Here are all the competitors by county")
 
-        elif number == 4:
+
+def option4(number):
+        if number == 4:
             print("Here are the winners of each race")
-        
-        elif number == 5:
+
+
+def option5(number):
+        if number == 5:
             print("Which competitor's times do you want to see?")
 
-        elif number == 6:
+
+def option6(number):
+        if number == 6:
             print("Showing all competitor's who have won a race...")
-            
-        elif number == 7:
+
+
+def option7(number):           
+        if number == 7:
             print("Exiting the program...")
             # break
-        
-        else:
-            print("Oops, you need to enter an option between 1 and 7.")
+
+
+
+# Just put else in option 7 
+# def no_option(number):
+#         if number != 1 or 2 or  3 or  4 or 5 or 6 or 7:
+#             print("Oops, you need to enter an option between 1 and 7.")
 
 
 
@@ -121,6 +142,13 @@ def main():
     number = display_menu(print_dashes)
     print(number)
     option1(number, print_dashes)
+    option2(number, names, ids)
+    option3(number)
+    option4(number)
+    option5(number)
+    option6(number)
+    option7(number)
+    
 
 
 main()
