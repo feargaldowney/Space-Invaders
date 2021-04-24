@@ -1,5 +1,10 @@
-John Jones, C-1
-Cian Coughlan, C-2
-Radon Randell, B-1
-Mark Matthews, N-1
-Andy Adams, N-2
+John Jones, 
+CK-1,
+Cian Coughlan,
+CK-2,
+Mark Matthews, 
+KY-1,
+Andy Adams, 
+KY-2,
+Radon Randell, 
+LK-1
