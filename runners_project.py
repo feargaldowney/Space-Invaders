@@ -78,33 +78,56 @@ def option1(number, print_dashes):
 
 
 
-# Need to rename new.txt to the name of the race
-# Next on agenda: make times appear beside participants id
 def option2(number, names, ids):
         if number == 2:
             print("Adding results for a race...")
-            new = open("new.txt", "w")
             race = (input("Where did this race take place? >>> "))
-            new.write(race)
+            new = open(str(race) + ".txt", "w")
             runner_ids = []
             times = []
             runner_details = []
             x = 0
             while x < len(names):
                 for i in names:
-                    times = input(f"What was {names[x]}'s time? >>> ")
+                    time = input(f"What was {names[x]}'s time? >>> ")
                     x += 1
-                    runner_details.append(times)
+                    times.append(time)
             runner_ids = ids
-            runner_details.append(ids)   
+            y = 0
+            while y < len(times):
+                runner_details.append(str(runner_ids[y]) + ", " + str(times[y]))
+                y += 1  
             print(runner_details)
-            
+            new.write(str(runner_details))
             new.close()
 
 
-def option3(number):
-        if number == 3:
-            print("Here are all the competitors by county")
+# def option3(number, names, ids, print_dashes):
+#         if number == 3:
+#             county = input("Please enter the name of a county >>> ").capitalize()
+#             print(county)
+#             # runners = []
+#             # runners = open("runners.txt", "r")
+#             i = 0
+#             print()
+#             print("Cork runners")                
+#             print_dashes(30)
+#             while i < len(ids):
+#                 if ids[i].startswith("CK"):
+#                     print(str(names[i]) + ", " + str(ids[i]))   
+#                 i += 1
+#                 print()
+#             print("Kerry runners")
+#             print_dashes(30)
+#                 if ids[i].startswith("KY"):
+#                     print(str(names[i]) + ", " + str(ids[i]))   
+                    
+            
+                # print(str(names[i]) + ", " + str(ids[i]))
+                # runners = []
+                # runners = open("runners.txt", "r")
+                # runners = runners.read()
+                # print(runners)
 
 
 def option4(number):
@@ -143,7 +166,7 @@ def main():
     print(number)
     option1(number, print_dashes)
     option2(number, names, ids)
-    option3(number)
+    option3(number, names, ids, print_dashes)
     option4(number)
     option5(number)
     option6(number)
