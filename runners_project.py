@@ -53,6 +53,15 @@ def display_menu(print_dashes):
                 print("Please enter a number between 1 and 7")
 
 
+def minutes(ids):
+    cork = open("cork.txt", "r")
+    cork_runners = cork.read()
+    i = 0
+    runner_ids = []
+    runner_ids = ids
+    # print(cork_runners)        
+
+
 def option1(number, print_dashes):
     if number == 1:
         print("The races are the following:")
@@ -105,13 +114,6 @@ def option2(number, names, ids):
         new.write(str(runner_details))
         new.close()
 
-"""
-To do:
-1. Add cork runners to list.
-2. loop sp you can add kerry runners to list.
-3. print the lists.
-"""
-
 
 def option3(number, ids, names, print_dashes):
     if number == 3:
@@ -123,26 +125,23 @@ def option3(number, ids, names, print_dashes):
         i = 0
         while i < len(ids):
             if ids[i].startswith("CK"):
-                cork_runners.append("     " + str(names[i]) + ", " + str(ids[i]))   
+                cork_runners.append("\n     " + str(names[i]) + ", " + str(ids[i]) + "\n")   
             elif ids[i].startswith("KY"):
-                kerry_runners.append("     " + str(names[i]) + ", " + str(ids[i]))
+                kerry_runners.append("\n     " + str(names[i]) + ", " + str(ids[i]) + "\n")
             elif ids[i].startswith("LK"):
-                Limerick_runners.append(("     " + str(names[i]) + ", " + str(ids[i])))  
+                Limerick_runners.append("\n     " + str(names[i]) + ", " + str(ids[i]) + "\n")
                 
             i += 1
         print("Cork runners")
         print_dashes(30)
         print(*cork_runners)
-        print()
         print("Kerry runners")
         print_dashes(30)
-        print(*kerry_runners)
-        print()
+        print(*kerry_runners) 
         print("Limerick runners")
         print_dashes(30)
         print(*Limerick_runners)
-        print()
-
+        
 
 
 def option4(number):
@@ -178,6 +177,7 @@ def option7(number):
 def main():
     names, ids = convert()
     number = display_menu(print_dashes)
+    minutes(ids)
     option1(number, print_dashes)
     option2(number, names, ids)
     option3(number, ids, names, print_dashes)
@@ -189,5 +189,3 @@ def main():
 
 
 main()
-
-
