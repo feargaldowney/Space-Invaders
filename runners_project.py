@@ -34,100 +34,115 @@ def convert():
 
 # Function to display the list of options avaialbe to the user.
 def display_menu(print_dashes):
-    print("                   User options                          ")
-    print_dashes(50)
-    print("1. Show the results for a race")
-    print("2. Add results for a race")
-    print("3. Show all competitors by county")
-    print("4. Show the winner of eachrace")
-    print("5. Show all the race times for one competitor")
-    print("6. Show all competitors who have won a race")
-    print("7. Quit")
-    print_dashes(50)
-    user_input = int(input("Please enter your choice from 1 - 7 >>> "))
-    return user_input
+        while 7 != True:
+            try:
+                print("                   User options                          ")
+                print_dashes(50)
+                print("1. Show the results for a race")
+                print("2. Add results for a race")
+                print("3. Show all competitors by county")
+                print("4. Show the winner of eachrace")
+                print("5. Show all the race times for one competitor")
+                print("6. Show all competitors who have won a race")
+                print("7. Quit")
+                print_dashes(50)
+                user_input = int(input("Please enter your choice from 1 - 7 >>> "))
+                print()
+                return user_input
+            except ValueError:
+                print("Please enter a number between 1 and 7")
+
 
 def option1(number, print_dashes):
-
-    # while True:
-        if number == 1:
-            print("The races are the following:")
+    if number == 1:
+        print("The races are the following:")
+        print_dashes(15)
+        print("1. Cork")
+        print("2. Kerry")
+        print_dashes(15)
+        race_choice = int(input("Which number race would you like the results of? >>> "))
+        if race_choice == 1:
+            print("Cork results:")
             print_dashes(15)
-            print("1. Cork")
-            print("2. Kerry")
+            cork = open("cork.txt", "r")
+            print(cork.read())
+            cork.close()
+            
+        elif race_choice == 2:
+            print("Kerry results:")
             print_dashes(15)
-            race_choice = int(input("Which number race would you like the results of? >>> "))
-            if race_choice == 1:
-                print("Cork results:")
-                print_dashes(15)
-                cork = open("cork.txt", "r")
-                print(cork.read())
-                cork.close()
-                exit
-            elif race_choice == 2:
-                print("Kerry results:")
-                print_dashes(15)
-                kerry = open("kerry.txt", "r")
-                print(kerry.read())
-                kerry.close()
-                exit
-            else: 
-                print()
-                print("Uh Oh, incorrect data entered, please enter '1' or '2'.")
-                print()
+            kerry = open("kerry.txt", "r")
+            print(kerry.read())
+            kerry.close()
+        
+        else:        
+            print()
+            print("Uh Oh, incorrect data entered, please enter '1' or '2'.")
+            print()
 
 
 
 def option2(number, names, ids):
-        if number == 2:
-            print("Adding results for a race...")
-            race = (input("Where did this race take place? >>> "))
-            new = open(str(race) + ".txt", "w")
-            runner_ids = []
-            times = []
-            runner_details = []
-            x = 0
-            while x < len(names):
-                for i in names:
-                    time = input(f"What was {names[x]}'s time? >>> ")
-                    x += 1
-                    times.append(time)
-            runner_ids = ids
-            y = 0
-            while y < len(times):
-                runner_details.append(str(runner_ids[y]) + ", " + str(times[y]))
-                y += 1  
-            print(runner_details)
-            new.write(str(runner_details))
-            new.close()
+    if number == 2:
+        print("Adding results for a race...")
+        race = (input("Where did this race take place? >>> "))
+        new = open(str(race) + ".txt", "w")
+        runner_ids = []
+        times = [] 
+        runner_details = []
+        x = 0
+        while x < len(names):
+            for i in names:
+                time = input(f"What was {names[x]}'s time? >>> ")
+                x += 1
+                times.append(time)
+        runner_ids = ids
+        y = 0
+        while y < len(times):
+            runner_details.append(str(runner_ids[y]) + ", " + str(times[y]))
+            y += 1  
+        print(runner_details)
+        new.write(str(runner_details))
+        new.close()
+
+"""
+To do:
+1. Add cork runners to list.
+2. loop sp you can add kerry runners to list.
+3. print the lists.
+"""
 
 
-# def option3(number, names, ids, print_dashes):
-#         if number == 3:
-#             county = input("Please enter the name of a county >>> ").capitalize()
-#             print(county)
-#             # runners = []
-#             # runners = open("runners.txt", "r")
-#             i = 0
-#             print()
-#             print("Cork runners")                
-#             print_dashes(30)
-#             while i < len(ids):
-#                 if ids[i].startswith("CK"):
-#                     print(str(names[i]) + ", " + str(ids[i]))   
-#                 i += 1
-#                 print()
-#             print("Kerry runners")
-#             print_dashes(30)
-#                 if ids[i].startswith("KY"):
-#                     print(str(names[i]) + ", " + str(ids[i]))   
-                    
-            
-                # print(str(names[i]) + ", " + str(ids[i]))
-                # runners = []
-                # runners = open("runners.txt", "r")
-                # runners = runners.read()
-                # print(runners)
+def option3(number, ids, names, print_dashes):
+    if number == 3:
+        print("Showing all competitors by county...")
+        print()
+        cork_runners = []
+        kerry_runners = []
+        Limerick_runners = []            
+        i = 0
+        while i < len(ids):
+            if ids[i].startswith("CK"):
+                cork_runners.append("     " + str(names[i]) + ", " + str(ids[i]))   
+            elif ids[i].startswith("KY"):
+                kerry_runners.append("     " + str(names[i]) + ", " + str(ids[i]))
+            elif ids[i].startswith("LK"):
+                Limerick_runners.append(("     " + str(names[i]) + ", " + str(ids[i])))  
+                
+            i += 1
+        print("Cork runners")
+        print_dashes(30)
+        print(*cork_runners)
+        print()
+        print("Kerry runners")
+        print_dashes(30)
+        print(*kerry_runners)
+        print()
+        print("Limerick runners")
+        print_dashes(30)
+        print(*Limerick_runners)
+        print()
+
 
 
 def option4(number):
@@ -163,15 +178,14 @@ def option7(number):
 def main():
     names, ids = convert()
     number = display_menu(print_dashes)
-    print(number)
     option1(number, print_dashes)
     option2(number, names, ids)
-    option3(number, names, ids, print_dashes)
+    option3(number, ids, names, print_dashes)
     option4(number)
     option5(number)
     option6(number)
     option7(number)
-    
+
 
 
 main()
