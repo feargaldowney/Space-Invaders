@@ -12,6 +12,9 @@ def print_dashes(i):
     print("-" * i)
 
 
+
+
+
 def convert():
     runners = open("runners.txt", "r")
     list_of_runners = []
@@ -53,13 +56,28 @@ def display_menu(print_dashes):
                 print("Please enter a number between 1 and 7")
 
 
-def minutes(ids):
+def minutes():
     cork = open("cork.txt", "r")
-    cork_runners = cork.read()
-    i = 0
-    runner_ids = []
-    runner_ids = ids
-    # print(cork_runners)        
+    cork_runners = []
+    [cork_runners.append(line.rstrip("\n")) for line in cork]
+    times = []
+    i = 1
+    print(cork_runners)
+    while i < len(cork_runners):
+        times.append(cork_runners.pop(i))
+        i += 1
+    print(times)
+    x = 0
+    time = [int(i) for i in times]
+    minutes = []
+    seconds = []
+    while x < len(time):
+        minutes.append(time[x] // 60)
+        seconds.append(time[x] % 60)
+        print(f"{minutes[x]} minutes and {seconds[x]} seconds")
+        x +=1
+        
+              
 
 
 def option1(number, print_dashes):
@@ -177,7 +195,7 @@ def option7(number):
 def main():
     names, ids = convert()
     number = display_menu(print_dashes)
-    minutes(ids)
+    minutes()
     option1(number, print_dashes)
     option2(number, names, ids)
     option3(number, ids, names, print_dashes)
