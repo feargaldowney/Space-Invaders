@@ -57,17 +57,15 @@ def display_menu(print_dashes):
 
 # Just made this, I'm yet to apply it to other functions to determine winners etc.
 # must change it up so that it works for all of them rather than having a separate function for each race.
-def cork_minutes():
+def cork_minutes(ids):
     cork = open("cork.txt", "r")
     cork_runners = []
     [cork_runners.append(line.rstrip("\n")) for line in cork]
     times = []
     i = 1
-    print(cork_runners)
     while i < len(cork_runners):
         times.append(cork_runners.pop(i))
         i += 1
-    print(times)
     x = 0
     time = [int(i) for i in times]
     minutes = []
@@ -78,8 +76,10 @@ def cork_minutes():
         seconds.append(time[x] % 60)
         total_times.append(f"{minutes[x]} minutes and {seconds[x]} seconds")
         x +=1
-    winner = min(total_times)
-    print(winner)
+    print(total_times)
+    winner_time = min(total_times)
+    winner_index = total_times.index(min(total_times))
+    winner = (f"{ids[winner_index]} won the race with a time of {winner_time} ")
     return total_times, winner
 
 """
@@ -106,7 +106,8 @@ def option1(number, print_dashes, ids, total_times, winner):
             while i < len(total_times):
                 print(ids[i] + ", " + total_times[i])
                 i += 1
-            print(f"The winner is x with a time of {winner}")
+            print()
+            print(winner)
             
         elif race_choice == 2:
             print("Kerry results:")
@@ -208,7 +209,7 @@ def option7(number):
 def main():
     names, ids = convert()
     number = display_menu(print_dashes)
-    total_times, winner = cork_minutes()
+    total_times, winner = cork_minutes(ids)
     option1(number, print_dashes, ids, total_times, winner)
     option2(number, names, ids)
     option3(number, ids, names, print_dashes)
