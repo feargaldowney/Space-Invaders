@@ -55,8 +55,9 @@ def display_menu(print_dashes):
             except ValueError:
                 print("Please enter a number between 1 and 7")
 
-
-def minutes():
+# Just made this, I'm yet to apply it to other functions to determine winners etc.
+# must change it up so that it works for all of them rather than having a separate function for each race.
+def cork_minutes():
     cork = open("cork.txt", "r")
     cork_runners = []
     [cork_runners.append(line.rstrip("\n")) for line in cork]
@@ -71,16 +72,26 @@ def minutes():
     time = [int(i) for i in times]
     minutes = []
     seconds = []
+    total_times = []
     while x < len(time):
         minutes.append(time[x] // 60)
         seconds.append(time[x] % 60)
-        print(f"{minutes[x]} minutes and {seconds[x]} seconds")
+        total_times.append(f"{minutes[x]} minutes and {seconds[x]} seconds")
         x +=1
+    winner = min(total_times)
+    print(winner)
+    return total_times, winner
+
+"""
+Changed up cork_minutes,
+Must continue fixing up option 1 so that it displays the winnner's ID
+Must still loop menu
+"""
         
               
 
 
-def option1(number, print_dashes):
+def option1(number, print_dashes, ids, total_times, winner):
     if number == 1:
         print("The races are the following:")
         print_dashes(15)
@@ -91,9 +102,11 @@ def option1(number, print_dashes):
         if race_choice == 1:
             print("Cork results:")
             print_dashes(15)
-            cork = open("cork.txt", "r")
-            print(cork.read())
-            cork.close()
+            i = 0
+            while i < len(total_times):
+                print(ids[i] + ", " + total_times[i])
+                i += 1
+            print(f"The winner is x with a time of {winner}")
             
         elif race_choice == 2:
             print("Kerry results:")
@@ -195,8 +208,8 @@ def option7(number):
 def main():
     names, ids = convert()
     number = display_menu(print_dashes)
-    minutes()
-    option1(number, print_dashes)
+    total_times, winner = cork_minutes()
+    option1(number, print_dashes, ids, total_times, winner)
     option2(number, names, ids)
     option3(number, ids, names, print_dashes)
     option4(number)
