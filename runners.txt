@@ -1,10 +1,5 @@
-John Jones
-CK-1
-Cian Coughlan
-CK-2
-Mark Matthews
-KY-1
-Andy Adams
-KY-2
-Radon Randell
-CK-3
+John Jones, CK-1
+Cian Coughlan, CK-2
+Mark Matthews, KY-1
+Andy Adams, KY-2
+Radon Randell, CK-3

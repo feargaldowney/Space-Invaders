@@ -12,35 +12,41 @@ def print_dashes(i):
     print("-" * i)
 
 
-def print_list(lst):
+def print_races_list(lst):
     for i in lst:
         print(i)
+
+def print_runners_list(lst):
+    for i in lst:
+        print(i[0])
+        print(i[1])
 
 def print_num_msg(num, msg):
     print(str(num) + ". " + msg)
         
 initial_races = ["Cork", "Kerry"]
-extra_races = []
-
+extra_races = [""]
+total_races = []
+total_races.append(initial_races)
+total_races.append(extra_races)
+print(total_races)
+# look at photo and combine so that they are formatted in the one list.
+# Also maybe pnly combine when option 2 is called?
 # comment me
 def convert(file): # parameterise file
     runners = open(file, "r")
     list_of_runners = []
-    [list_of_runners.append(line.rstrip("\n")) for line in runners]
     runners_ids = []
     runners_names = []
-    i = 9 # could do len(list) -1
-    x = 4
-    #Cork racers
-    while i > 0:
-        runners_ids.append(list_of_runners.pop(i))
-        i -= 2
-    while x >= 0:
-        runners_names.append(list_of_runners.pop(x))
-        x -= 1
-    runners_ids.reverse()
-    runners_names.reverse()
-    return runners_names, runners_ids
+    fixed_ids = []
+    for i in runners:
+        list_of_runners.append(i.split(", "))
+    for i in (list_of_runners):
+        runners_ids.append(i.pop())
+        runners_names.append(i.pop())
+    for i in runners_ids:
+        fixed_ids.append(i.rstrip("\n"))
+    return runners_names, fixed_ids
 
 
 # Function to display the list of options avaialbe to the user.
@@ -48,13 +54,14 @@ def display_menu():
 
     print("                   User options                          ")
     print_dashes(50)
-    print("1. Show the results for a race")
-    print("2. Add results for a race")
-    print("3. Show all competitors by county")
-    print("4. Show the winner of each race")
-    print("5. Show all the race times for one competitor")
-    print("6. Show all competitors who have won a race")
-    print("7. Quit")
+
+    print_num_msg(1, "Show the results for a race")
+    print_num_msg(2, "Add results for a race")
+    print_num_msg(3, "Show all competitors by county")
+    print_num_msg(4, "Show the winner of each race")
+    print_num_msg(5, "Show all the race times for one competitor")
+    print_num_msg(6, "Show all competitors who have won a race")
+    print_num_msg(7, "Quit")
     print_dashes(50)
     user_input = int(input("Please enter your choice from 1 - 7 >>> "))
     print()
@@ -63,7 +70,7 @@ def display_menu():
     return user_input
 
 # combine global lists and use here in place of initial_races and anywhere I index into initial races
-def minutes(i):
+def times_to_mins(i):
     race = initial_races[i - 1].lower() + ".txt"
     venue = open(race, "r")
     runners = []
@@ -84,54 +91,37 @@ def minutes(i):
         total_times.append(f"{minutes[x]} minutes and {seconds[x]} seconds")
         x +=1
     return total_times
-    
 
 
-# sort out this function
-def winners(ids, total_times):
+def determine_winner(ids, total_times):
     winner_time = min(total_times)
     winner_index = total_times.index(min(total_times))
     winner = (f"{ids[winner_index]} won the race with a time of {winner_time} ")
     return winner
 
-# fix hard coding
+
 def option1(ids, counter):
     print("The races are the following:")
     print_dashes(15)
-    print("1. Cork")
-    print("2. Kerry")
+    print_num_msg(1,  "Cork")
+    print_num_msg(2, "Kerry")
     if len(extra_races) > 0:
         for i in range(len(extra_races)):
             print_num_msg(i + 3, extra_races[i])
     print_dashes(15)
     race_choice = int(input("Which number race would you like the results of? >>> "))
-    total_times = minutes(race_choice)
-    winner = winners(ids, total_times)
+    total_times = times_to_mins(race_choice)
+    winner = determine_winner(ids, total_times)
     print(initial_races[race_choice - 1] + " results")
     print_dashes(15)
     i = 0
     while i < len(total_times):
         print(ids[i] + ", " + total_times[i])
         i += 1
-        print()
-        print(winner)            
+    print()
+    print(winner)            
     if counter >= 2:
         print("working")    
-    # elif counter >= 1:
-    #     print(f"{race} results:")
-    #     print_dashes(15)
-    #     i = 0
-    #     while i < len(total_times):
-    #         print(ids[i] + ", " + total_times[i])
-    #         i += 1
-    #     print()
-    #     print(winner)
-
-    
-    # else:        
-    #     print()
-    #     print("Uh Oh, incorrect data entered, please enter '1' or '2'.")
-    #     print()
 
 
 def option2(names, ids):
@@ -180,23 +170,23 @@ def option3(ids, names):
         i += 1
     print("Cork runners")
     print_dashes(30)
-    print_list(cork_runners)
+    print_races_list(cork_runners)
     print("Kerry runners")
     print_dashes(30)
-    print_list(kerry_runners) 
+    print_races_list(kerry_runners) 
 
 # rewrite
-def option4(ids, winners):
+def option4(ids):
     print("Here are the winners of each race...")
-    # print_dashes(30)
-    # x = 1
-    # winners = []
-    # while x < 3:
-    #     total_mins = minutes(ids)
-    #     x += 1
-    #     winners.append(winner)
-    # for i in winners:
-    #     print(i)
+    i = 0
+    print_dashes(50)
+    while i < 2:
+        total_times = times_to_mins(i + 1)
+        i += 1
+        winner = determine_winner(ids, total_times)
+    # for i in total_races:
+        print(winner)
+ 
         
 
 def option5():
@@ -209,6 +199,7 @@ def option6():
 
 def main():
     race = ""
+    # times_to_mins(i)
     names, ids = convert("runners.txt")
     counter = 0
     while True:
