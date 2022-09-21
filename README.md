@@ -1,2 +1,2 @@
 # project
-Python project for first year software development student
+Python project for second year software development student
